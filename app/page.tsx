@@ -4,6 +4,9 @@ import { SimpleInput } from "@/registry/new-york/blocks/simple-input/simple-inpu
 import { TextEditPreview } from "@/components/previews/text-edit-preview";
 import { SpacedText } from "@/registry/new-york/jdm-editor/components/spaced-text";
 import { ConfirmActionPreview } from "@/components/previews/confirm-action-preview";
+import { AutosizeTextAreaPreview } from "@/components/previews/autosize-text-area-preview";
+import { DiffIcon } from "@/registry/new-york/jdm-editor/components/diff-icon";
+import { ArrowDiffIcon } from "@/registry/new-york/jdm-editor/components/arrow-diff-icon";
 
 export default function Home() {
   return (
@@ -59,6 +62,49 @@ export default function Home() {
           </div>
           <div className="flex items-center justify-center min-h-[400px] relative">
             <ConfirmActionPreview />
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm text-muted-foreground sm:pl-3">
+              Autosize text area — grows up to a max number of rows.
+            </h2>
+          </div>
+          <div className="flex items-center justify-center min-h-[400px] relative">
+            <AutosizeTextAreaPreview />
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm text-muted-foreground sm:pl-3">
+              Diff icon — visualises added, removed, modified, and moved states.
+            </h2>
+          </div>
+          <div className="flex items-center justify-center min-h-[400px] relative">
+            <div className="flex gap-6 items-center text-2xl">
+              <DiffIcon status="added" />
+              <DiffIcon status="removed" />
+              <DiffIcon status="modified" style={{ fontSize: 24 }} />
+              <DiffIcon status="moved" />
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm text-muted-foreground sm:pl-3">
+              Arrow diff icon — directional indicator for diffs.
+            </h2>
+          </div>
+          <div className="flex items-center justify-center min-h-[400px] relative">
+            <div className="flex gap-6 items-center">
+              <ArrowDiffIcon direction="right" size="small" />
+              <ArrowDiffIcon direction="right" size="medium" />
+              <ArrowDiffIcon direction="down" size="small" />
+              <ArrowDiffIcon direction="down" size="medium" />
+            </div>
           </div>
         </div>
       </main>
