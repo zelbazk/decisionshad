@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "simple-input",
+  "title": "Simple Input",
+  "description": "A simple labeled input component.",
+  "registryDependencies": [
+    "input",
+    "label"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/blocks/simple-input/simple-input.tsx",
+      "content": "import { Input } from \"@/components/ui/input\"\nimport { Label } from \"@/components/ui/label\"\n\nexport function SimpleInput() {\n  return (\n    <div className=\"flex flex-col gap-2\">\n      <Label htmlFor=\"simple-input\">Label</Label>\n      <Input id=\"simple-input\" placeholder=\"Enter text...\" />\n    </div>\n  )\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}
