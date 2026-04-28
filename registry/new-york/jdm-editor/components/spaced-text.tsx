@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack } from "./stack";
+import { Stack } from "../stack";
 
 export type SpacedTextProps = {
   left: React.ReactNode;

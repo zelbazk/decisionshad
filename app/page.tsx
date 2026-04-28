@@ -2,7 +2,7 @@ import * as React from "react";
 import { OpenInV0Button } from "@/components/open-in-v0-button";
 import { SimpleInput } from "@/registry/new-york/blocks/simple-input/simple-input";
 import { TextEditPreview } from "@/components/previews/text-edit-preview";
-import { SpacedText } from "@/registry/new-york/jdm-editor/spaced-text";
+import { SpacedText } from "@/registry/new-york/jdm-editor/components/spaced-text";
 import { ConfirmActionPreview } from "@/components/previews/confirm-action-preview";
 
 export default function Home() {

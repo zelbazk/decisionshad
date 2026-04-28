@@ -1,6 +1,6 @@
 "use client";
 
-import { ConfirmAction } from "@/registry/new-york/jdm-editor/confirm-action";
+import { ConfirmAction } from "@/registry/new-york/jdm-editor/components/confirm-action";
 
 export function ConfirmActionPreview() {
   return (
