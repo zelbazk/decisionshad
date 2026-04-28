@@ -3,6 +3,7 @@ import { OpenInV0Button } from "@/components/open-in-v0-button";
 import { SimpleInput } from "@/registry/new-york/blocks/simple-input/simple-input";
 import { TextEditPreview } from "@/components/previews/text-edit-preview";
 import { SpacedText } from "@/registry/new-york/jdm-editor/spaced-text";
+import { ConfirmActionPreview } from "@/components/previews/confirm-action-preview";
 
 export default function Home() {
   return (
@@ -47,6 +48,17 @@ export default function Home() {
             <div className="w-64">
               <SpacedText left="Label" right="Value" />
             </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm text-muted-foreground sm:pl-3">
+              Confirm action — click once to arm, again to confirm.
+            </h2>
+          </div>
+          <div className="flex items-center justify-center min-h-[400px] relative">
+            <ConfirmActionPreview />
           </div>
         </div>
       </main>

@@ -1,9 +1,14 @@
 "use client";
 
 import { Button, type ButtonProps } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { TrashIcon } from "lucide-react";
 import React, { useState } from "react";
+import { P, match } from "ts-pattern";
 
 export type ConfirmActionProps = {
   iconOnly?: boolean;
@@ -29,9 +34,10 @@ export const ConfirmAction: React.FC<ConfirmActionProps> = ({
 }) => {
   const [isConfirming, setIsConfirming] = useState(false);
 
-  const tooltipOpen = iconOnly && !disabled ? undefined : false;
-  const label = !iconOnly ? (isConfirming ? confirmText : text) : undefined;
-  const tooltipTitle = isConfirming ? confirmText : text;
+  const tooltipOpen = match([iconOnly, disabled])
+    .with([P._, true], () => false)
+    .with([false, P._], () => false)
+    .otherwise(() => undefined);
 
   return (
     <Tooltip open={tooltipOpen}>
@@ -53,13 +59,15 @@ export const ConfirmAction: React.FC<ConfirmActionProps> = ({
             onBlur?.(event);
             setIsConfirming(false);
           }}
-          {...props}
-        >
+          {...props}>
           {icon}
-          {label}
+          {match([iconOnly, isConfirming])
+            .with([false, true], () => confirmText)
+            .with([false, false], () => text)
+            .otherwise(() => undefined)}
         </Button>
       </TooltipTrigger>
-      <TooltipContent>{tooltipTitle}</TooltipContent>
+      <TooltipContent>{isConfirming ? confirmText : text}</TooltipContent>
     </Tooltip>
   );
 };
