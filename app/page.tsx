@@ -1,6 +1,7 @@
 import * as React from "react";
 import { OpenInV0Button } from "@/components/open-in-v0-button";
 import { SimpleInput } from "@/registry/new-york/blocks/simple-input/simple-input";
+import { TextEditPreview } from "@/components/previews/text-edit-preview";
 
 export default function Home() {
   return (
@@ -21,6 +22,17 @@ export default function Home() {
           </div>
           <div className="flex items-center justify-center min-h-[400px] relative">
             <SimpleInput />
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm text-muted-foreground sm:pl-3">
+              An inline text editor — click the text to edit.
+            </h2>
+          </div>
+          <div className="flex items-center justify-center min-h-[400px] relative">
+            <TextEditPreview />
           </div>
         </div>
       </main>
