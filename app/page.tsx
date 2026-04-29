@@ -1,5 +1,6 @@
 import * as React from "react";
 import { OpenInV0Button } from "@/components/open-in-v0-button";
+import { ModeToggle } from "@/components/mode-toggle";
 import { SimpleInput } from "@/registry/new-york/blocks/simple-input/simple-input";
 import { TextEditPreview } from "@/components/previews/text-edit-preview";
 import { SpacedText } from "@/registry/new-york/jdm-editor/components/spaced-text";
@@ -7,12 +8,16 @@ import { ConfirmActionPreview } from "@/components/previews/confirm-action-previ
 import { AutosizeTextAreaPreview } from "@/components/previews/autosize-text-area-preview";
 import { DiffIcon } from "@/registry/new-york/jdm-editor/components/diff-icon";
 import { ArrowDiffIcon } from "@/registry/new-york/jdm-editor/components/arrow-diff-icon";
+import { CodeEditorPreview } from "@/components/previews/code-editor-preview";
 
 export default function Home() {
   return (
     <div className="max-w-3xl mx-auto flex flex-col min-h-svh px-4 py-8 gap-8">
       <header className="flex flex-col gap-1">
-        <h1 className="text-3xl font-bold tracking-tight">decisionshad</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-3xl font-bold tracking-tight">decisionshad</h1>
+          <ModeToggle />
+        </div>
         <p className="text-muted-foreground">
           A custom registry for distributing code using shadcn.
         </p>
@@ -104,6 +109,19 @@ export default function Home() {
               <ArrowDiffIcon direction="right" size="medium" />
               <ArrowDiffIcon direction="down" size="small" />
               <ArrowDiffIcon direction="down" size="medium" />
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm text-muted-foreground sm:pl-3">
+              Code editor — zen expression editor with syntax highlighting.
+            </h2>
+          </div>
+          <div className="flex items-center justify-center min-h-[400px] relative w-full">
+            <div className="w-full">
+              <CodeEditorPreview />
             </div>
           </div>
         </div>
