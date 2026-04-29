@@ -21,6 +21,7 @@
     "@gorules/lezer-zen": "^0.8.1",
     "@gorules/lezer-zen-template": "^0.4.0",
     "@gorules/zen-engine-wasm": "^0.23.1",
+    "@monaco-editor/react": "^4.7.0",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "@storybook/core-events": "^8.6.14",
