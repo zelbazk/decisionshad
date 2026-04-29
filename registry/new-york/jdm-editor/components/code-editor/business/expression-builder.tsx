@@ -17,6 +17,7 @@ import {
   CircleSlashIcon,
   ClockArrowDownIcon,
   ClockArrowUpIcon,
+  ClockIcon,
   EqualIcon,
   EqualNotIcon,
   ListIcon,
@@ -27,6 +28,7 @@ import {
   TextCursorInputIcon,
   XIcon,
 } from "lucide-react";
+import dayjs from "dayjs";
 import React, {
   useCallback,
   useEffect,
@@ -37,6 +39,9 @@ import React, {
 } from "react";
 import { P, match } from "ts-pattern";
 
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Input } from "@/components/ui/input";
 import {
   Popover,
   PopoverContent,
@@ -56,6 +61,7 @@ import { useWasmReady } from "../../../helpers/wasm";
 import { AutosizeTextArea } from "../../autosize-text-area";
 import { CodeEditorBase } from "../ce-base";
 import { focusBuilderRoot } from "./focus-helper";
+import "./expression-builder.css";
 
 export type ExpressionBuilderProps = {
   value: string;
@@ -804,7 +810,7 @@ const NumInput: React.FC<SimpleInputProps> = ({
   onChange,
   disabled,
 }) => (
-  <input
+  <Input
     type="number"
     className="eb-number"
     value={value?.type === "number" ? value.value : 0}
@@ -840,28 +846,41 @@ const DateInput: React.FC<SimpleInputProps> = ({
   onChange,
   disabled,
 }) => {
+  const [open, setOpen] = useState(false);
   const dateVal =
-    value?.type === "date"
-      ? value.value
-      : new Date().toISOString().slice(0, 10);
+    value?.type === "date" ? value.value : dayjs().format("YYYY-MM-DD");
   const granularity =
     value?.type === "date" ? (value.granularity ?? "__exact__") : "__exact__";
+  const selected = dayjs(dateVal).toDate();
+
   return (
     <>
-      <input
-        type="date"
-        className="eb-date"
-        value={dateVal}
-        onChange={(e) =>
-          e.target.value &&
-          onChange({
-            type: "date",
-            value: e.target.value,
-            granularity: granularity === "__exact__" ? undefined : granularity,
-          })
-        }
-        disabled={disabled}
-      />
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button variant="ghost" className="eb-date" disabled={disabled}>
+            <CalendarIcon size={14} />
+            {dayjs(dateVal).format("MMM D, YYYY")}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0" align="start">
+          <Calendar
+            mode="single"
+            selected={selected}
+            onSelect={(d) => {
+              if (d) {
+                onChange({
+                  type: "date",
+                  value: dayjs(d).format("YYYY-MM-DD"),
+                  granularity:
+                    granularity === "__exact__" ? undefined : granularity,
+                });
+                setOpen(false);
+              }
+            }}
+            initialFocus
+          />
+        </PopoverContent>
+      </Popover>
       <Select
         value={granularity}
         onValueChange={(g) =>
@@ -892,22 +911,35 @@ const TimeInput: React.FC<SimpleInputProps> = ({
   onChange,
   disabled,
 }) => {
+  const [open, setOpen] = useState(false);
   const timeStr =
     value?.type === "time"
-      ? `${String(value.hour).padStart(2, "0")}:${String(value.minute).padStart(2, "0")}`
-      : "09:00";
+      ? dayjs().hour(value.hour).minute(value.minute).format("HH:mm")
+      : dayjs().hour(9).minute(0).format("HH:mm");
+
   return (
-    <input
-      type="time"
-      className="eb-time"
-      value={timeStr}
-      onChange={(e) => {
-        const [h, m] = e.target.value.split(":").map(Number);
-        if (!isNaN(h) && !isNaN(m))
-          onChange({ type: "time", hour: h, minute: m });
-      }}
-      disabled={disabled}
-    />
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button variant="ghost" className="eb-time" disabled={disabled}>
+          <ClockIcon size={14} />
+          {timeStr}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-3" align="start">
+        <Input
+          type="time"
+          value={timeStr}
+          onChange={(e) => {
+            const [h, m] = e.target.value.split(":").map(Number);
+            if (!isNaN(h) && !isNaN(m)) {
+              onChange({ type: "time", hour: h, minute: m });
+              setOpen(false);
+            }
+          }}
+          className="w-28"
+        />
+      </PopoverContent>
+    </Popover>
   );
 };
 
@@ -1161,7 +1193,7 @@ const IntervalInput: React.FC<SimpleInputProps> = ({
         onClick={() => !disabled && upd({ leftInclusive: !iv.leftInclusive })}>
         {iv.leftInclusive ? "[" : "("}
       </span>
-      <input
+      <Input
         type="number"
         className="eb-interval-num"
         value={iv.left}
@@ -1172,7 +1204,7 @@ const IntervalInput: React.FC<SimpleInputProps> = ({
         disabled={disabled}
       />
       <span className="text-muted-foreground">..</span>
-      <input
+      <Input
         type="number"
         className="eb-interval-num"
         value={iv.right}
