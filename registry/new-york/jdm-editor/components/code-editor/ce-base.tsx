@@ -1,5 +1,7 @@
 "use client";
 
+import "./ce.css";
+
 import { bracketMatching, syntaxHighlighting } from "@codemirror/language";
 import {
   Compartment,
