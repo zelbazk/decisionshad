@@ -52,6 +52,7 @@ import {
 import { cn } from "@/lib/utils";
 import type { ColumnFieldType } from "../../../helpers/schema";
 import { type DictionaryMap, useDictionaries } from "../../../theme";
+import { useWasmReady } from "../../../helpers/wasm";
 import { AutosizeTextArea } from "../../autosize-text-area";
 import { CodeEditorBase } from "../ce-base";
 import { focusBuilderRoot } from "./focus-helper";
@@ -356,20 +357,30 @@ const isExprCompatibleWithKind = (
 };
 
 const useExpressionState = (value: string, onChange: (v: string) => void) => {
+  const wasmReady = useWasmReady();
+
   const expr = useMemo(() => {
+    if (!wasmReady) {
+      return {
+        kind: "simple" as const,
+        operator: { type: "eq" as OperatorType },
+        value: null,
+      } as ExpressionBuilderData;
+    }
     const e = ExpressionBuilderWasm.parseUnary(value);
     const d = e.toJson() as ExpressionBuilderData;
     e.free();
     return d;
-  }, [value]);
+  }, [value, wasmReady]);
 
   const update = useCallback(
     (d: ExpressionBuilderData) => {
+      if (!wasmReady) return;
       const e = ExpressionBuilderWasm.fromJson(d);
       onChange(e.serialize());
       e.free();
     },
-    [onChange],
+    [onChange, wasmReady],
   );
 
   const setVal = useCallback(

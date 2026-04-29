@@ -14,6 +14,7 @@ import {
 } from "@/components/previews/code-editor-preview";
 import { CodeHighlighterPreview } from "@/components/previews/code-highlighter-preview";
 import { CePreviewWrapper } from "@/components/previews/ce-preview-wrapper";
+import { ExpressionBuilderPreview } from "@/components/previews/expression-builder-preview";
 
 export default function Home() {
   return (
@@ -28,71 +29,71 @@ export default function Home() {
         </p>
       </header>
       <main className="flex flex-col flex-1 gap-8">
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
+        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-112.5 relative">
           <div className="flex items-center justify-between">
             <h2 className="text-sm text-muted-foreground sm:pl-3">
               A simple labeled input component.
             </h2>
             <OpenInV0Button name="simple-input" className="w-fit" />
           </div>
-          <div className="flex items-center justify-center min-h-[400px] relative">
+          <div className="flex items-center justify-center min-h-100 relative">
             <SimpleInput />
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
+        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-112.5 relative">
           <div className="flex items-center justify-between">
             <h2 className="text-sm text-muted-foreground sm:pl-3">
               An inline text editor — click the text to edit.
             </h2>
           </div>
-          <div className="flex items-center justify-center min-h-[400px] relative">
+          <div className="flex items-center justify-center min-h-100 relative">
             <TextEditPreview />
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
+        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-112.5 relative">
           <div className="flex items-center justify-between">
             <h2 className="text-sm text-muted-foreground sm:pl-3">
               Spaced text — left and right content spread apart.
             </h2>
           </div>
-          <div className="flex items-center justify-center min-h-[400px] relative w-full">
+          <div className="flex items-center justify-center min-h-100 relative w-full">
             <div className="w-64">
               <SpacedText left="Label" right="Value" />
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
+        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-112.5 relative">
           <div className="flex items-center justify-between">
             <h2 className="text-sm text-muted-foreground sm:pl-3">
               Confirm action — click once to arm, again to confirm.
             </h2>
           </div>
-          <div className="flex items-center justify-center min-h-[400px] relative">
+          <div className="flex items-center justify-center min-h-100 relative">
             <ConfirmActionPreview />
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
+        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-112.5 relative">
           <div className="flex items-center justify-between">
             <h2 className="text-sm text-muted-foreground sm:pl-3">
               Autosize text area — grows up to a max number of rows.
             </h2>
           </div>
-          <div className="flex items-center justify-center min-h-[400px] relative">
+          <div className="flex items-center justify-center min-h-100 relative">
             <AutosizeTextAreaPreview />
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
+        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-112.5 relative">
           <div className="flex items-center justify-between">
             <h2 className="text-sm text-muted-foreground sm:pl-3">
               Diff icon — visualises added, removed, modified, and moved states.
             </h2>
           </div>
-          <div className="flex items-center justify-center min-h-[400px] relative">
+          <div className="flex items-center justify-center min-h-100 relative">
             <div className="flex gap-6 items-center text-2xl">
               <DiffIcon status="added" />
               <DiffIcon status="removed" />
@@ -102,13 +103,13 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
+        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-112.5 relative">
           <div className="flex items-center justify-between">
             <h2 className="text-sm text-muted-foreground sm:pl-3">
               Arrow diff icon — directional indicator for diffs.
             </h2>
           </div>
-          <div className="flex items-center justify-center min-h-[400px] relative">
+          <div className="flex items-center justify-center min-h-100 relative">
             <div className="flex gap-6 items-center">
               <ArrowDiffIcon direction="right" size="small" />
               <ArrowDiffIcon direction="right" size="medium" />
@@ -118,56 +119,70 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
+        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-112.5 relative">
           <div className="flex items-center justify-between">
             <h2 className="text-sm text-muted-foreground sm:pl-3">
               Code editor — zen expression editor with syntax highlighting.
             </h2>
           </div>
-          <div className="flex items-center justify-center min-h-[400px] relative w-full">
+          <div className="flex items-center justify-center min-h-100 relative w-full">
             <div className="w-full">
               <CodeEditorPreview />
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
+        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-112.5 relative">
           <div className="flex items-center justify-between">
             <h2 className="text-sm text-muted-foreground sm:pl-3">
               Code highlighter — read-only zen expression with syntax
               highlighting.
             </h2>
           </div>
-          <div className="flex items-center justify-center min-h-[400px] relative w-full">
+          <div className="flex items-center justify-center min-h-100 relative w-full">
             <div className="w-full">
               <CodeHighlighterPreview />
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
+        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-112.5 relative">
           <div className="flex items-center justify-between">
             <h2 className="text-sm text-muted-foreground sm:pl-3">
               Code editor (lazy) — renders as highlighter, switches to editor on
               click.
             </h2>
           </div>
-          <div className="flex items-center justify-center min-h-[400px] relative w-full">
+          <div className="flex items-center justify-center min-h-100 relative w-full">
             <div className="w-full">
               <CodeEditorLazyPreview />
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
+        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-112.5 relative">
           <div className="flex items-center justify-between">
             <h2 className="text-sm text-muted-foreground sm:pl-3">
               Code editor preview — live preview panel with simulation result.
             </h2>
           </div>
-          <div className="flex items-center justify-center min-h-[400px] relative w-full">
+          <div className="flex items-center justify-center min-h-100 relative w-full">
             <div className="w-full">
               <CePreviewWrapper />
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-112.5 relative">
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm text-muted-foreground sm:pl-3">
+              Expression builder — visual operator + value picker for unary
+              expressions.
+            </h2>
+          </div>
+          <div className="flex items-center justify-center min-h-100 relative w-full">
+            <div className="w-full">
+              <ExpressionBuilderPreview />
             </div>
           </div>
         </div>
