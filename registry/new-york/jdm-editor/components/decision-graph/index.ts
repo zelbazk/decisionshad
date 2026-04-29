@@ -6,4 +6,15 @@ export {
   type Diff,
   type Position,
   type DiffStatus,
-} from './dg-types';
+} from "./dg-types";
+
+export type {
+  Simulation,
+  SimulationTrace,
+  SimulationTraceDataTable,
+  SimulationTraceDataFunction,
+  SimulationTraceDataExpression,
+  SimulationError,
+  SimulationOk,
+  SimulationTraceDataSwitch,
+} from "./simulator/simulation.types";
