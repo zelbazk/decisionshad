@@ -1,0 +1,247 @@
+/* ── Standard Expression Builder ─────────────────────────────────────────── */
+
+.seb {
+  --b-font-size: 13px;
+  --b-line-height: 1.5;
+  --b-v-padding: 2px;
+  --b-h-padding: 4px;
+  --b-height: calc(
+    var(--b-font-size) * var(--b-line-height) + var(--b-v-padding) * 2
+  );
+  --b-max-rows: 3;
+  --b-max-height: calc(var(--b-height) * var(--b-max-rows));
+
+  --bg-light: var(--muted);
+  --bg-active: color-mix(in oklch, var(--primary) 20%, var(--background));
+  --color-active-text: var(--primary);
+
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  min-height: var(--b-height);
+  font-size: var(--b-font-size);
+  line-height: var(--b-line-height);
+
+  & .grl-textarea-input:focus {
+    box-shadow: none;
+  }
+}
+
+/* ── Mode toggle button ───────────────────────────────────────────────────── */
+
+.seb-mode-btn {
+  padding: var(--b-v-padding) 6px;
+  font-size: 11px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background: var(--muted);
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--b-height);
+  flex-shrink: 0;
+
+  &:hover:not(:disabled) {
+    background: color-mix(in oklch, var(--muted) 70%, var(--foreground));
+    color: var(--foreground);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+/* ── Code editor (expression mode) ───────────────────────────────────────── */
+
+.seb-code {
+  flex: 1;
+  min-width: 40px;
+  max-height: var(--b-max-height);
+  overflow-y: auto;
+  --ce-lineHeight: var(--b-line-height);
+  --ce-verticalPadding: var(--b-v-padding);
+  --ce-horizontalPadding: var(--b-h-padding);
+}
+
+/* ── Text input ───────────────────────────────────────────────────────────── */
+
+.seb-input {
+  flex: 1;
+  min-width: 40px;
+  border: none;
+  background: transparent;
+  outline: none;
+  resize: none;
+  font-family: inherit;
+  font-size: var(--b-font-size) !important;
+  line-height: var(--b-line-height) !important;
+  padding: var(--b-v-padding) var(--b-h-padding) !important;
+  height: auto !important;
+  min-height: var(--b-height);
+}
+
+/* ── Number input ─────────────────────────────────────────────────────────── */
+
+.seb-number {
+  flex: 1;
+  min-width: 40px;
+  height: var(--b-height) !important;
+  padding: var(--b-v-padding) var(--b-h-padding) !important;
+  font-size: var(--b-font-size) !important;
+  line-height: var(--b-line-height) !important;
+}
+
+/* ── Single select ────────────────────────────────────────────────────────── */
+
+.seb-select {
+  flex: 1;
+  min-width: 50px;
+  height: var(--b-height) !important;
+  font-size: var(--b-font-size) !important;
+
+  /* plain <button> usage (Combobox trigger) */
+  &:not([data-slot="select-trigger"]) {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: var(--b-v-padding) var(--b-h-padding);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 3px;
+    color: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: var(--b-line-height);
+
+    &:hover:not(:disabled) {
+      background: var(--muted);
+    }
+  }
+
+  /* shadcn SelectTrigger reset */
+  &[data-slot="select-trigger"] {
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    height: var(--b-height) !important;
+    padding: var(--b-v-padding) var(--b-h-padding) !important;
+    font-size: var(--b-font-size) !important;
+  }
+}
+
+/* ── Multi-select / tags container ───────────────────────────────────────── */
+
+.seb-select-multi {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  min-height: var(--b-height);
+  padding: var(--b-v-padding) var(--b-h-padding);
+  border: none;
+  background: transparent;
+  cursor: text;
+  border-radius: 3px;
+  gap: 4px;
+
+  &:hover:not(:disabled) {
+    background: var(--muted);
+  }
+}
+
+.seb-tags-display {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+
+.seb-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 5px;
+  height: calc(var(--b-height) - 4px);
+  background: var(--bg-active);
+  color: var(--color-active-text);
+  border-radius: 3px;
+  font-size: calc(var(--b-font-size) - 1px);
+  white-space: nowrap;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.seb-tag-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.7;
+  border-radius: 2px;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.seb-tags-input {
+  flex: 1;
+  min-width: 60px;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: inherit;
+  font-size: var(--b-font-size);
+  line-height: var(--b-line-height);
+  color: inherit;
+
+  &::placeholder {
+    color: var(--muted-foreground);
+    opacity: 0.7;
+  }
+}
+
+/* ── Date picker button ───────────────────────────────────────────────────── */
+
+.seb-date {
+  flex: 1;
+  min-width: 80px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: var(--b-height) !important;
+  padding: var(--b-v-padding) var(--b-h-padding) !important;
+  font-size: var(--b-font-size) !important;
+  line-height: var(--b-line-height) !important;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+  border-radius: 3px;
+  white-space: nowrap;
+
+  &:hover:not(:disabled) {
+    background: var(--muted);
+  }
+}
+
+/* ── Combobox popup ───────────────────────────────────────────────────────── */
+
+.seb-select-popup {
+  min-width: 180px;
+  max-width: 280px;
+}
